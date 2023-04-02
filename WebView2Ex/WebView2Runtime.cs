@@ -41,7 +41,7 @@ public class WebView2Runtime : IDisposable
     public CoreWebView2Environment? Environment { get; private set; }
     internal UI.WebView2Ex? Owner;
     Visual? buffer;
-    public Visual? RootVisualTarget
+    internal Visual? RootVisualTarget
     {
         get => buffer;
         set
