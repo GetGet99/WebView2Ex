@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+	xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+	xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+	xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+	xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+	IgnorableNamespaces="uap mp rescap">
+
+	<Identity
+	  Name="5c7d3f32-1a3d-4e01-86d2-320d6f558eed"
+	  Publisher="CN=getdn"
+	  Version="1.0.0.0" />
+
+	<mp:PhoneIdentity PhoneProductId="5c7d3f32-1a3d-4e01-86d2-320d6f558eed" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+	<Properties>
+		<DisplayName>WebView2ExTest</DisplayName>
+		<PublisherDisplayName>getdn</PublisherDisplayName>
+		<Logo>Assets\StoreLogo.png</Logo>
+	</Properties>
+
+	<Dependencies>
+		<TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+	</Dependencies>
+
+	<Resources>
+		<Resource Language="x-generate"/>
+	</Resources>
+
+	<Applications>
+		<Application Id="App"
+		  Executable="$targetnametoken$.exe"
+		  EntryPoint="WebView2ExTest.App">
+			<uap:VisualElements
+			  DisplayName="WebView2ExTest"
+			  Square150x150Logo="Assets\Square150x150Logo.png"
+			  Square44x44Logo="Assets\Square44x44Logo.png"
+			  Description="WebView2ExTest"
+			  BackgroundColor="transparent">
+				<uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+				<uap:SplashScreen Image="Assets\SplashScreen.png" />
+			</uap:VisualElements>
+		</Application>
+	</Applications>
+
+	<Capabilities>
+		<Capability Name="internetClient" />
+		<!-- <rescap:Capability Name="runFullTrust" /> -->
+		<!-- <rescap:Capability Name="broadFileSystemAccess" /> -->
+		<!--The unvirtualizedResources capability is used to support file operations in the AppData directory-->
+		<!-- <rescap:Capability Name="unvirtualizedResources" /> -->
+	</Capabilities>
+</Package>
