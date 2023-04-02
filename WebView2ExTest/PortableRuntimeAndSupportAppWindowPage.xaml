@@ -1,0 +1,13 @@
+﻿<Page
+    x:Class="WebView2ExTest.PortableRuntimeAndSupportAppWindowPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WebView2ExTest"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wv2ex="using:WebView2Ex.UI"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <wv2ex:WebView2Ex x:Name="wv2ex" />
+</Page>
