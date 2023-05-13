@@ -121,6 +121,7 @@ public class WebView2Runtime : IDisposable
 
     internal void SetWindow(HWND window)
     {
+        return;
         if (Controller is not null)
 #if !NonWinRTWebView2
             Controller.ParentWindow = CoreWebView2ControllerWindowReference.CreateFromWindowHandle((ulong)window.Value);
