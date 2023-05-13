@@ -41,7 +41,7 @@ partial class WebView2Ex
         }
         else
         {
-#if UWP
+#if WINDOWS_UWP
             Window.Current.VisibilityChanged += VisiblityChangedHandler;
 #elif WinUI3
             ParentWindow.VisibilityChanged += VisiblityChangedHandler;
@@ -56,7 +56,7 @@ partial class WebView2Ex
         var grid = new Grid { Background = new SolidColorBrush(Colors.Transparent) };
         Content = grid;
 #if WINDOWS_UWP
-        visual ??= Window.Current.Compositor.CreateSpriteVisual();
+        visual ??= ElementCompositionPreview.GetElementVisual(this).Compositor.CreateSpriteVisual();
 
         SetCoreWebViewAndVisualSize((float)ActualWidth, (float)ActualHeight);
 

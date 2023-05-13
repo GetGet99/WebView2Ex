@@ -39,6 +39,7 @@ partial class WebView2Ex
         // Using a dummy parent all the time won't work, since we can't reparent the
         // browser from a Non-ShellManaged Hwnd (dummy) to a ShellManaged one (CoreWindow).
 #if WINDOWS_UWP
+        if (ParentWindow != default) return ParentWindow;
         CoreWindow coreWindow = CoreWindow.GetForCurrentThread();
         if (coreWindow is not null)
         {
@@ -81,9 +82,7 @@ partial class WebView2Ex
     HWND GetHostHwnd()
     {
 #if WINDOWS_UWP
-        if (ParentWindow != default)
-            return ParentWindow;
-        return new(((ICoreWindowInterop)((dynamic)CoreWindow.GetForCurrentThread())).WindowHandle);
+        return ParentWindow;
 #elif WinUI3
         if (ParentWindow is not null)
             return new(WindowNative.GetWindowHandle(ParentWindow));
@@ -93,17 +92,13 @@ partial class WebView2Ex
     }
     HWND GetActiveInputWindowHwnd()
     {
-        if (m_inputWindowHwnd == default)
+        var inputWindowHwnd = GetFocus();
+        if (inputWindowHwnd == default)
         {
-            var inputWindowHwnd = GetFocus();
-            if (inputWindowHwnd == default)
-            {
-                throw new COMException("A COM error has occured", Marshal.GetLastWin32Error());
-            }
-            Debug.Assert(inputWindowHwnd != GetHostHwnd()); // Focused XAML host window cannot be set as input hwnd
-            m_inputWindowHwnd = inputWindowHwnd;
+            throw new COMException("A COM error has occured", Marshal.GetLastWin32Error());
         }
-        return m_inputWindowHwnd;
+        Debug.Assert(inputWindowHwnd != GetHostHwnd()); // Focused XAML host window cannot be set as input hwnd
+        return inputWindowHwnd;
     }
 
     void CheckAndUpdateWebViewPosition()
@@ -180,25 +175,6 @@ partial class WebView2Ex
             hostWindowPosition.Y = windowPosition.Y;
             var Controller = this.Controller;
             Controller?.NotifyParentWindowPositionChanged();
-        }
-    }
-
-    void UpdateParentWindow(HWND newParentWindow)
-    {
-        var Controller = this.Controller;
-        if (m_tempHostHwnd != default && Controller != null)
-        {
-#if !NonWinRTWebView2
-            var windowRef = CoreWebView2ControllerWindowReference.CreateFromWindowHandle((ulong)newParentWindow.Value);
-#else
-            var windowRef = WindowNative.GetWindowHandle(ParentWindow);
-#endif
-
-            // Reparent webview host
-            Controller.ParentWindow = windowRef;
-
-            DestroyWindow(m_tempHostHwnd);
-            m_tempHostHwnd = default;
         }
     }
 }

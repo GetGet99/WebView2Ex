@@ -87,6 +87,8 @@ partial class WebView2Ex
 
             double rawPixelsPerViewPixel = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
 
+            
+
             return (rawPixelsPerViewPixel, Window.Current.Visible);
         })();
 

@@ -1,6 +1,7 @@
 ﻿// Original: https://github.com/microsoft/microsoft-ui-xaml/blob/main/dev/WebView2/WebView2.cpp
 #nullable enable
 #if WINDOWS_UWP
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using CompositionTarget = Windows.UI.Xaml.Media.CompositionTarget;
@@ -32,7 +33,6 @@ partial class WebView2Ex
         if (m_isVisible != currentVisibility || force)
         {
             m_isVisible = currentVisibility;
-
             UpdateCoreWebViewVisibility();
         }
     }

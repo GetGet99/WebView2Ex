@@ -66,7 +66,7 @@ partial class WebView2Ex
             uint message = PInvoke.WM_KEYDOWN;
             WPARAM wparam = new((nuint)VIRTUAL_KEY.VK_TAB);
             LPARAM lparam = MakeLParam(0x0001, 0x000f);  // flags copied from matching WM_KEYDOWN
-
+            
             LRESULT result = new(SendMessage(GetActiveInputWindowHwnd(), message, wparam, lparam));
             if (result == 0)
             {
