@@ -8,4 +8,7 @@
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
     <AuthenticationMode>Universal</AuthenticationMode>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+  </PropertyGroup>
 </Project>

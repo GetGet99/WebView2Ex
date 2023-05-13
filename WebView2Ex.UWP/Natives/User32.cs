@@ -7,6 +7,7 @@ using Windows.Win32;
 using Windows.Win32.Foundation;
 using SysPoint = System.Drawing.Point;
 using Windows.Win32.UI.WindowsAndMessaging;
+using Windows.UI.Core;
 using System.Runtime.CompilerServices;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
 
@@ -71,6 +72,9 @@ static class User32
     static readonly GetFocusDelegate _GetFocus;
     public static HWND GetFocus() => _GetFocus.Invoke();
 
+    static readonly GetFocusDelegate _GetActiveWindow;
+    public static HWND GetActiveWindow() => _GetFocus.Invoke();
+
     static readonly RegisterClassDelegate _RegisterClass;
     public static ushort RegisterClass(in WNDCLASSW lpWndClass)
         => _RegisterClass.Invoke(in lpWndClass);
@@ -128,6 +132,15 @@ static class User32
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => GetAsyncKeyDown(VIRTUAL_KEY.VK_SHIFT);
+
+    static Guid ICoreWindowInteropGUID = typeof(ICoreWindowInterop).GUID;
+    public static HWND HWNDFromCoreWindow(CoreWindow coreWindow)
+    {
+        Marshal.QueryInterface(Marshal.GetIUnknownForObject(CoreWindow.GetForCurrentThread()),
+            ref ICoreWindowInteropGUID,
+            out var corewindowinterop
+        );
+        return new(((ICoreWindowInterop)Marshal.GetObjectForIUnknown(corewindowinterop)).WindowHandle);
     }
     public static bool IsAltDown
     {

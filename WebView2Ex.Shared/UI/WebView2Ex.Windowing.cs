@@ -78,11 +78,13 @@ partial class WebView2Ex
         }
         return m_tempHostHwnd;
     }
-
     HWND GetHostHwnd()
     {
 #if WINDOWS_UWP
-        return ParentWindow;
+        	return ParentWindow;
+        
+        
+        return HWNDFromCoreWindow(CoreWindow.GetForCurrentThread());
 #elif WinUI3
         if (ParentWindow is not null)
             return new(WindowNative.GetWindowHandle(ParentWindow));
