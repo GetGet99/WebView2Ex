@@ -132,6 +132,7 @@ static class User32
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => GetAsyncKeyDown(VIRTUAL_KEY.VK_SHIFT);
+    }
 
     static Guid ICoreWindowInteropGUID = typeof(ICoreWindowInterop).GUID;
     public static HWND HWNDFromCoreWindow(CoreWindow coreWindow)
