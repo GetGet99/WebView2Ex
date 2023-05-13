@@ -81,6 +81,7 @@ partial class WebView2Ex
     HWND GetHostHwnd()
     {
 #if WINDOWS_UWP
+        if (ParentWindow != default)
         	return ParentWindow;
         
         
