@@ -60,6 +60,18 @@ public class WebView2Runtime : IDisposable
     public CoreWebView2? CoreWebView2 { get; private set; }
     public CoreWebView2Environment? Environment { get; private set; }
     internal UI.WebView2Ex? Owner;
+//#if NonWinRTWebView2
+//    Windows.Win32.Graphics.DirectComposition.IDCompositionVisual? buffer;
+//    internal Windows.Win32.Graphics.DirectComposition.IDCompositionVisual? RootVisualTarget
+//    {
+//        get => buffer;
+//        set
+//        {
+//            if (CompositionController is not null)
+//                CompositionController.RootVisualTarget = buffer = value;
+//        }
+//    }
+//#else
     Visual? buffer;
     internal Visual? RootVisualTarget
     {
@@ -70,16 +82,7 @@ public class WebView2Runtime : IDisposable
                 CompositionController.RootVisualTarget = buffer = value;
         }
     }
-    //IDCompositionVisual? buffer;
-    //internal IDCompositionVisual? RootVisualTarget
-    //{
-    //    get => buffer;
-    //    set
-    //    {
-    //        if (CompositionController is not null)
-    //            CompositionController.RootVisualTarget = buffer = value;
-    //    }
-    //}
+//#endif
     private WebView2Runtime(
         CoreWebView2CompositionController CompositionController)
     {
@@ -94,17 +97,19 @@ public class WebView2Runtime : IDisposable
         CoreWebView2 = Controller.CoreWebView2;
         Environment = CoreWebView2.Environment;
     }
-    public async static Task<WebView2Runtime> CreateAsync(CoreWebView2Environment env)
+    public async static Task<WebView2Runtime> CreateAsync(CoreWebView2Environment env, CoreWebView2ControllerOptions options = null)
     {
 #if !NonWinRTWebView2
         var windowRef = CoreWebView2ControllerWindowReference.CreateFromCoreWindow(CoreWindow.GetForCurrentThread());
 #else
         var windowRef = default(HWND);
 #endif
-        var controller = await env.CreateCoreWebView2CompositionControllerAsync(windowRef);
+        var controller =
+            options is null ? await env.CreateCoreWebView2CompositionControllerAsync(windowRef) :
+            await env.CreateCoreWebView2CompositionControllerAsync(windowRef, options);
         return new(controller);
     }
-    public async static Task<WebView2Runtime> CreateAsync(CoreWebView2Environment env, IntPtr windowHWND)
+    public async static Task<WebView2Runtime> CreateAsync(CoreWebView2Environment env, IntPtr windowHWND, CoreWebView2ControllerOptions options = null)
     {
 #if WINDOWS_UWP
         var windowRef = CoreWebView2ControllerWindowReference.CreateFromCoreWindow(CoreWindow.GetForCurrentThread());
@@ -113,7 +118,9 @@ public class WebView2Runtime : IDisposable
 #else
         var windowRef = CoreWebView2ControllerWindowReference.CreateFromWindowHandle((ulong)windowHWND);
 #endif
-        var controller = await env.CreateCoreWebView2CompositionControllerAsync(windowRef);
+        var controller =
+            options is null ? await env.CreateCoreWebView2CompositionControllerAsync(windowRef) :
+            await env.CreateCoreWebView2CompositionControllerAsync(windowRef, options);
         return new(controller);
     }
     public async static Task<WebView2Runtime> CreateAsync()
@@ -144,6 +151,10 @@ public class WebView2Runtime : IDisposable
     internal void SetWindow(Window XAMLWindow)
     {
         SetWindow(new HWND(WindowNative.GetWindowHandle(XAMLWindow)));
+    }
+    internal void SetWindow(Microsoft.UI.Windowing.AppWindow appWindow)
+    {
+        SetWindow(new HWND((nint)appWindow.Id.Value));
     }
 #endif
     public void Dispose()

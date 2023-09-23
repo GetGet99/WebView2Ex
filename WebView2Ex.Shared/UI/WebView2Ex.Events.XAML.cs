@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 #elif WinUI3
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 #endif
@@ -17,7 +18,10 @@ namespace WebView2Ex.UI;
 
 partial class WebView2Ex
 {
-
+#if WinUI3
+    public static bool DefaultShouldAutomaticallyDetectWindow = true;
+    public bool? ShouldAutomaticallyDetectWindow = null;
+#endif
     double rasterizationScale = 1;
     bool isHostVisible;
 
@@ -33,6 +37,14 @@ partial class WebView2Ex
 
         // If we're not loaded, there's nothing for us to do since Unloaded took care of everything
         if (!IsLoaded) return;
+#if WinUI3
+        if (ShouldAutomaticallyDetectWindow ?? DefaultShouldAutomaticallyDetectWindow)
+        {
+            var curHwnd = XamlRoot.ContentWindow.WindowId;
+            if (curHwnd != ParentWindow?.Id)
+                SetWindow(AppWindow.GetFromWindowId(curHwnd));
+        }
+#endif
 
         await TryCompleteInitialization();
 
@@ -48,6 +60,7 @@ partial class WebView2Ex
                 contentPresenter.VerticalContentAlignment = VerticalAlignment.Stretch;
             }
         }
+        UpdateSize();
     }
 
     void OnUnloaded(object sender, RoutedEventArgs args)
@@ -61,8 +74,11 @@ partial class WebView2Ex
         {
             xamlRoot.Changed -= XamlRootChangedHanlder;
         }
+#if WINDOWS_UWP
         Window.Current.VisibilityChanged -= VisiblityChangedHandler;
-
+#else
+        ParentWindow.Changed -= AppWindowChangedHandler;
+#endif
         DisconnectFromRootVisualTarget();
     }
 
@@ -74,6 +90,14 @@ partial class WebView2Ex
 
     void XamlRootChangedHelper(bool forceUpdate)
     {
+#if WinUI3
+        if (ShouldAutomaticallyDetectWindow ?? DefaultShouldAutomaticallyDetectWindow)
+        {
+            var curHwnd = XamlRoot.ContentWindow.WindowId;
+            if (curHwnd != ParentWindow?.Id)
+                SetWindow(AppWindow.GetFromWindowId(curHwnd));
+        }
+#endif
         var (scale, hostVisibility) = new Func<(double, bool)>(delegate
         {
             var xamlRoot = XamlRoot;
@@ -87,7 +111,7 @@ partial class WebView2Ex
 
             double rawPixelsPerViewPixel = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
 
-            
+
 
             return (rawPixelsPerViewPixel, Window.Current.Visible);
         })();
@@ -121,6 +145,15 @@ partial class WebView2Ex
     {
         HandleXamlRootChanged();
     }
+#if WinUI3
+    void AppWindowChangedHandler(AppWindow a, AppWindowChangedEventArgs e)
+    {
+        if (e.DidVisibilityChange)
+        {
+            HandleXamlRootChanged();
+        }
+    }
+#endif
     void XamlRootChangedHanlder(XamlRoot sender, XamlRootChangedEventArgs args)
     {
         HandleXamlRootChanged();

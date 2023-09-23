@@ -88,7 +88,7 @@ partial class WebView2Ex
         return HWNDFromCoreWindow(CoreWindow.GetForCurrentThread());
 #elif WinUI3
         if (ParentWindow is not null)
-            return new(WindowNative.GetWindowHandle(ParentWindow));
+            return new((nint)ParentWindow.Id.Value);
         else
             return default;
 #endif

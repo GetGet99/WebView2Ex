@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebView2Ex.WinUI", "WebView
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebView2ExTest.WinUI", "WebView2ExTest.WinUI\WebView2ExTest.WinUI.csproj", "{9F9772BB-7B4A-4093-88AB-44FD45A5C915}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCompPrivateProjection", "DCompAdventure\DCompPrivateProjection\DCompPrivateProjection.csproj", "{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,26 +127,6 @@ Global
 		{9F9772BB-7B4A-4093-88AB-44FD45A5C915}.Release|x86.ActiveCfg = Release|x86
 		{9F9772BB-7B4A-4093-88AB-44FD45A5C915}.Release|x86.Build.0 = Release|x86
 		{9F9772BB-7B4A-4093-88AB-44FD45A5C915}.Release|x86.Deploy.0 = Release|x86
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|Any CPU.Build.0 = Debug|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|ARM.ActiveCfg = Debug|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|ARM.Build.0 = Debug|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|ARM64.Build.0 = Debug|ARM64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|x64.ActiveCfg = Debug|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|x64.Build.0 = Debug|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|x86.ActiveCfg = Debug|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Debug|x86.Build.0 = Debug|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|Any CPU.ActiveCfg = Release|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|Any CPU.Build.0 = Release|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|ARM.ActiveCfg = Release|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|ARM.Build.0 = Release|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|ARM64.ActiveCfg = Release|ARM64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|ARM64.Build.0 = Release|ARM64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|x64.ActiveCfg = Release|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|x64.Build.0 = Release|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|x86.ActiveCfg = Release|x64
-		{3212C21F-0CBE-48E9-A4A8-A804E7EECF47}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -32,17 +32,4 @@ TOUCH_FLAG_NONE
 TOUCH_MASK_CONTACTAREA
 TOUCH_MASK_ORIENTATION
 
-IDCompositionDevice
-IDCompositionDevice3
-IDCompositionVisual
-IDXGIFactory2
-ID3D11Device
-CreateDXGIFactory1
-
-DCompositionCreateDevice3
-D3D11CreateDevice
-
-D3D11_SDK_VERSION
-IDXGIDevice
-D2D1CreateDevice
 SetCursor

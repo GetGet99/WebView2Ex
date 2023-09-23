@@ -1,4 +1,10 @@
 ﻿// Anything in this file is NOT from the Microsoft.UI.Xaml repository
+#if NonWinRTWebView2
+extern alias WV2;
+using WV2::Microsoft.Web.WebView2.Core;
+#else
+using Microsoft.Web.WebView2.Core;
+#endif
 #nullable enable
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -14,12 +20,6 @@ using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml;
 #endif
 
-#if NonWinRTWebView2
-extern alias WV2;
-using WV2::Microsoft.Web.WebView2.Core;
-#else
-using Microsoft.Web.WebView2.Core;
-#endif
 
 namespace WebView2Ex.UI;
 
@@ -146,3 +146,13 @@ class ElementInteractionTracker : IInteractionTrackerOwner
     }
     public event Action<InteractionTrackerValuesChangedArgs>? ValuesChangedEvent;
 }
+#if NonWinRTWebView2
+static class NonWinRTWebView2Extension
+{
+    public static void SendMouseInput(this CoreWebView2CompositionController controller, CoreWebView2MouseEventKind eventKind, CoreWebView2MouseEventVirtualKeys virtualKeys, uint mouseData, Windows.Foundation.Point point)
+    {
+        controller.SendMouseInput(eventKind, virtualKeys, mouseData, new System.Drawing.Point((int)point.X, (int)point.Y));
+    }
+
+}
+#endif

@@ -166,7 +166,7 @@
       <Version>2.8.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Web.WebView2">
-      <Version>1.0.1671-prerelease</Version>
+      <Version>1.0.2106-prerelease</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

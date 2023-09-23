@@ -35,6 +35,7 @@ namespace WebView2ExTest.WinUI
         /// </summary>
         public App()
         {
+            System.Environment.SetEnvironmentVariable("WEBVIEW2_RELEASE_CHANNEL_PREFERENCE", "1");
             this.InitializeComponent();
         }
 

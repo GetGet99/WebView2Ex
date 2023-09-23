@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 #elif WinUI3
 using Microsoft.UI;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -47,14 +48,18 @@ public partial class WebView2Ex
 #if WINDOWS_UWP
     private HWND ParentWindow;
 #elif WinUI3
-    private Window? ParentWindow;
+    private AppWindow? ParentWindow;
 #endif
 
     partial void OnWebView2RuntimeChanging(WebView2Runtime? value)
     {
         var oldRuntime = WebView2Runtime;
         if (oldRuntime is null) return;
+#if WinUI3
         if (oldRuntime.RootVisualTarget == visual)
+#else
+        if (oldRuntime.RootVisualTarget == visual)
+#endif
         {
             oldRuntime.RootVisualTarget = null;
             if (oldRuntime.Controller is not null)
@@ -77,6 +82,7 @@ public partial class WebView2Ex
         if (newRuntime.Controller is not null)
             newRuntime.Controller.IsVisible = m_isVisible;
         if (visual is not null) newRuntime.RootVisualTarget = visual;
+        UpdateSize();
     }
     void UpdateWindow()
     {

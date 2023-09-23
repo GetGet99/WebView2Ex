@@ -20,11 +20,9 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Hosting;
-using Windows.Win32.Graphics.DirectComposition;
-using Windows.Win32.Graphics.Direct2D.Common;
 using System.Runtime.InteropServices;
-using Windows.Win32.Foundation;
 using System.Diagnostics;
+using WinRT;
 #endif
 namespace WebView2Ex.UI;
 
@@ -44,7 +42,7 @@ partial class WebView2Ex
 #if WINDOWS_UWP
             Window.Current.VisibilityChanged += VisiblityChangedHandler;
 #elif WinUI3
-            ParentWindow.VisibilityChanged += VisiblityChangedHandler;
+            ParentWindow.Changed += AppWindowChangedHandler;
 #endif
         }
 

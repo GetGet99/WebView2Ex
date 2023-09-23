@@ -6,6 +6,7 @@ using Windows.UI.WindowManagement;
 using Windows.Win32.Foundation;
 using static WebView2Ex.Natives.User32;
 #elif WinUI3
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 #endif
 namespace WebView2Ex.UI;
@@ -29,7 +30,7 @@ partial class WebView2Ex
         SetWindow(HWNDFromCoreWindow(coreWindow));
     }
 #elif WinUI3
-    public void SetWindow(Window window)
+    public void SetWindow(AppWindow window)
     {
         ParentWindow = window;
         UpdateWindow();

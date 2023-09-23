@@ -77,7 +77,7 @@ partial class WebView2Ex
 #if WINDOWS_UWP
         Window.Current.VisibilityChanged -= VisiblityChangedHandler;
 #elif WinUI3
-        ParentWindow.VisibilityChanged -= VisiblityChangedHandler;
+        ParentWindow.Changed -= AppWindowChangedHandler;
 #endif
         CompositionTarget.Rendered -= HandleRendered;
     }

@@ -5,12 +5,22 @@ namespace WebView2Ex.UI;
 
 partial class WebView2Ex
 {
+    void UpdateSize()
+    {
+        SetCoreWebViewAndVisualSize((float)ActualWidth, (float)ActualHeight);
+    }
     void DisconnectFromRootVisualTarget()
     {
         var CompositionController = this.CompositionController;
         if (CompositionController is not null)
         {
-            CompositionController.RootVisualTarget = null;
+            try
+            {
+                CompositionController.RootVisualTarget = null;
+            } catch (System.InvalidOperationException) // corewebview2 member cannot be accessed after webview2 is disposed
+            {
+
+            }
         }
     }
 

@@ -590,6 +590,10 @@ partial class WebView2Ex
         }
 #elif WinUI3 && !NonWinRTWebView2
             ProtectedCursor = InputCursor.CreateFromCoreCursor(CompositionController.Cursor);
+#else
+        {
+
+        }
 #endif
     }
 

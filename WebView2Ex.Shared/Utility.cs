@@ -15,9 +15,10 @@ static class Utility
         // The callback that is given to CreateTimer is called off of the UI thread.
         // In order to make this useful by making it so we can interact with XAML objects,
         // we'll use the dispatcher to first post our work to the UI thread before executing it.
-        var timer = ThreadPoolTimer.CreateTimer(async _
-            => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()),
-            TimeSpan.FromMilliseconds(millisecondWait)
-        );
+        if (Dispatcher is not null)
+            ThreadPoolTimer.CreateTimer(async _
+                => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()),
+                TimeSpan.FromMilliseconds(millisecondWait)
+            );
     }
 }

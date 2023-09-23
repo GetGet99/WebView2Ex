@@ -45,6 +45,9 @@ static class User32
 
     public static BOOL DestroyWindow(HWND hWnd)
         => PInvoke.DestroyWindow(hWnd);
+
+    public static bool IsShiftDown => WinWrapper.Input.Keyboard.IsShiftDown;
+    public static bool IsControlDown => WinWrapper.Input.Keyboard.IsControlDown;
 }
 class UnsafeSafeHandle : SafeHandle
 {

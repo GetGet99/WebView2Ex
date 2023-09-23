@@ -1,34 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
-		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
 		<RootNamespace>WebView2Ex.WinUI</RootNamespace>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<UseWinUI>true</UseWinUI>
-		<DefineConstants>WinUI3</DefineConstants>
-		<!--NonWinRTWebView2-->
+		<DefineConstants>WinUI3,NonWinRTWebView2</DefineConstants>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-		<!--
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1661.34">
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2106-prerelease">
 			<Aliases>WV2</Aliases>
 		</PackageReference>
-		-->
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.2.206-beta">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221109.1">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230518007-experimental1">
 			<Aliases></Aliases>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\DCompAdventure\DCompPrivateProjection\DCompPrivateProjection.csproj" />
+		<PackageReference Include="WinWrapper.Input" Version="2.0.0" />
 	</ItemGroup>
 
 	<Import Project="..\WebView2Ex.Shared\WebView2Ex.Shared.projitems" Label="Shared" />
