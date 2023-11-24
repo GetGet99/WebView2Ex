@@ -6,7 +6,7 @@ Most of the code is translated from the microsoft-ui-xaml repository. Some chang
 
 ## Differences with the built-in WebView2 control
 - You get full access to the CoreWebView2CompositionController class.
-- I have separated the runtime from the control. This means that the runtime can be viewed as a "data class" or "Model" and WebView2Ex control can be viewed as a "control class" or "View Model"
+- I have separated the runtime from the control. This means that the runtime can be viewed as a "data class" or "Model" and WebView2Ex control can be viewed as a "control class" or "View"
 - (UWP) Partially supports AppWindow
 - I have fixed horizontal scrolling (not sure if the built-in control fixed that already or not, but at the time it was an issue)
 - Smooth touchpad scrolling (not as natively but it at least feels better than the built-in version)
